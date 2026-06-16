@@ -3,8 +3,11 @@ import requests
 import os
 from dotenv import load_dotenv
 load_dotenv
-app = Flask(__name__)
-
+app = Flask(
+    __name__,
+    template_folder="../templates",
+    static_folder="../static"
+)
 API_KEY = os.getenv("OPENWEATHER_API_KEY")
 
 
@@ -13,7 +16,7 @@ API_KEY = os.getenv("OPENWEATHER_API_KEY")
 # -------------------------------
 def get_weather(city):
     url = (
-        f"https://api.openweathermap.org/data/2.5/weather?"
+        f"https://api.openweathermap.org/data/2.5/weather?" 
         f"q={city}&appid={API_KEY}&units=metric"
     )
 
