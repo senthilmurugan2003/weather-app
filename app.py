@@ -3,7 +3,6 @@ import requests
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
 
 app = Flask(__name__)
 
@@ -255,7 +254,5 @@ def home():
         result=result,
         error=error
     )
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
+if not API_KEY:
+    raise Exception("OPENWEATHER_API_KEY not set in Vercel environment variables")
