@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Weather Intelligence</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="container">
+
+        <header>
+            <h1>🌦 Smart Weather Intelligence App</h1>
+            <p>Real-Time Weather • AQI • Health • Travel</p>
+        </header>
+
+        <form method="POST" class="search-box">
+
+            <input
+                type="text"
+                name="city"
+                placeholder="Enter City Name"
+                required
+            >
+
+            <select name="activity">
+                <option value="running">🏃 Running</option>
+                <option value="cycling">🚴 Cycling</option>
+                <option value="cricket">🏏 Cricket</option>
+                <option value="travel">✈ Travel</option>
+            </select>
+
+            <button type="submit">
+                Search
+            </button>
+
+        </form>
+
+        {% if error %}
+            <div class="error">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        {% if result %}
+
+        <!-- Weather Card -->
+
+        <div class="card weather-card">
+
+            <h2>
+                {{ result.weather.city }},
+                {{ result.weather.country }}
+            </h2>
+
+            <img
+                src="https://openweathermap.org/img/wn/{{ result.weather.icon }}@2x.png"
+                alt="Weather Icon"
+            >
+
+            <h1>{{ result.weather.temp }} °C</h1>
+
+            <p>{{ result.weather.condition }}</p>
+
+        </div>
+
+        <!-- Grid Layout -->
+
+        <div class="grid">
+
+            <div class="card">
+                <h3>🌡 Feels Like</h3>
+                <p>{{ result.weather.feels_like }} °C</p>
+            </div>
+
+            <div class="card">
+                <h3>💧 Humidity</h3>
+                <p>{{ result.weather.humidity }} %</p>
+            </div>
+
+            <div class="card">
+                <h3>🌬 Wind Speed</h3>
+                <p>{{ result.weather.wind_speed }} m/s</p>
+            </div>
+
+            <div class="card">
+                <h3>📈 Pressure</h3>
+                <p>{{ result.weather.pressure }} hPa</p>
+            </div>
+
+            <div class="card">
+                <h3>🌫 AQI</h3>
+                <p>{{ result.aqi }}</p>
+            </div>
+
+            <div class="card">
+                <h3>👕 Clothing</h3>
+                <p>{{ result.clothing }}</p>
+            </div>
+
+            <div class="card">
+                <h3>🏥 Health Advisory</h3>
+                <p>{{ result.health }}</p>
+            </div>
+
+            <div class="card">
+                <h3>✈ Travel Score</h3>
+                <p>{{ result.travel_score }}/100</p>
+            </div>
+
+            <div class="card">
+                <h3>🏃 Activity Planner</h3>
+                <p>{{ result.activity }}</p>
+            </div>
+
+            <div class="card">
+                <h3>⚠ Weather Risk</h3>
+                <p>{{ result.risk }}</p>
+            </div>
+
+        </div>
+
+        <!-- AI Summary -->
+
+        <div class="summary-card">
+            <h3>🤖 AI Weather Summary</h3>
+            <p>{{ result.summary }}</p>
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</body>
+</html>
